@@ -47,6 +47,7 @@ public:
     {
         return value_;
     }
+
     void set_value(int value)
     {
         value_ = value;
@@ -56,6 +57,7 @@ public:
     {
         return enabled_;
     }
+
     void set_enabled(bool enabled)
     {
         enabled_ = enabled;
@@ -65,6 +67,12 @@ public:
     {
         return value_ == target_;
     }
+
+    int target()
+    {
+        return target_;
+    }
+
     void set_target(int target)
     {
         target_ = target;
