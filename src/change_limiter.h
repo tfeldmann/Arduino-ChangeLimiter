@@ -1,6 +1,8 @@
 #pragma once
 #include <Arduino.h>
 
+#define CL_SIGN(x) ((x > 0) - (x < 0))
+
 /**
  *  Change Limiter
  *
@@ -154,7 +156,7 @@ public:
             {
                 prev_time_ = ms;
 
-                bool differentSigns = (sign(target_) * sign(value_) == -1);
+                bool differentSigns = (CL_SIGN(target_) * CL_SIGN(value_) == -1);
                 if (differentSigns)
                 {
                     // in this case the value must make a zero pass first and
@@ -165,14 +167,14 @@ public:
                     }
                     else
                     {
-                        value_ -= sign(value_) * max_falling_;
+                        value_ -= CL_SIGN(value_) * max_falling_;
                     }
                 }
                 else
                 {
                     // in this case we can use normal delta logic
                     int delta = abs(target_) - abs(value_);
-                    int dir = sign(value_) | sign(target_);
+                    int dir = CL_SIGN(value_) | CL_SIGN(target_);
                     if (delta > 0 && delta > max_rising_)
                     {
                         value_ += dir * max_rising_;
